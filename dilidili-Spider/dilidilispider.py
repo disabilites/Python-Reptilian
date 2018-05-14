@@ -6,14 +6,15 @@ from bs4 import BeautifulSoup
 
 video_pattern = re.compile('/.*?\?1')
 image_pattern = re.compile('/.*?\.jpg')
-Week = {0: "'elmnt-one'", 1: 'elmnt-two', 2: 'elmnt-three', 3: 'elmnt-four', 4: 'elmnt-five',
+Week = {0: 'elmnt-one', 1: 'elmnt-two', 2: 'elmnt-three', 3: 'elmnt-four', 4: 'elmnt-five',
         5: 'elmnt-six', 6: 'elmnt-seven'}
 logging.basicConfig(filename='program.log', level=logging.INFO)
 
 def get_url(url):
     response = requests.get(url)
     response.encoding = 'utf-8'
-    return response.text
+    result = re.search('<!--.*?新番时间表.*?-->(.*?)<!-- <a href="" class="btn">新番时间表</a> -->', response.text, re.S)
+    return result.group(1)
 
 def parse_html(html):
     soup = BeautifulSoup(html, 'lxml')
@@ -32,3 +33,8 @@ def main(url):
     end_html = parse_html(start_html)
     save_html(end_html)
     logging.info(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + '：获取页面成功！')
+
+if __name__ == '__main__':
+    html = main('http://www.dilidili.wang/')
+    parse_html(html)
+    save_html(html)
