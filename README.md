@@ -19,4 +19,4 @@
   
 ### 5、music163-Spider：
 
-  爬取任意网易云歌单中的歌曲标题，歌手名字，歌曲链接以及封面链接。保存为js文件主要是为了配合[Aplayer播放器](https://aplayer.js.org/#/zh-Hans/ )使用
+  爬取任意[网易云歌单](http://music.163.com/discover/playlist)(需去掉URL中的#)中的歌曲标题，歌手名字，歌曲链接以及封面链接。保存为js文件主要是为了配合[Aplayer播放器](https://aplayer.js.org/#/zh-Hans/ )使用
