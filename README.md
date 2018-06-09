@@ -12,7 +12,7 @@
 [嘀哩嘀哩](http://www.dilidili.wang/)的番剧推送板块，保存为html文件，并发送到指定邮箱
   
 ### 4、pixiv-Spider：
-[P站（pixiv）](https://www.pixiv.net/)(需翻墙)的排行榜，抓图每个作品的展示图，介绍页，标题，并保存为html文件。如需要下载原图，可通过替换原图URL，并通过作品介绍页面发送请求，即可下载。否则会出现403错误。
+[P站（pixiv）](https://www.pixiv.net/)（需翻墙）的排行榜，抓图每个作品的展示图，介绍页，标题，并保存为html文件。如需要下载原图，可通过替换原图URL，并通过作品介绍页面发送请求，即可下载。否则会出现403错误。
   
 [pixiv_img_download.py](https://github.com/disabilites/Python-Spider/blob/master/pixiv-Spider/pixiv_img_download.py)下载pixiv日榜，需要爬取周榜或月榜更换URL即可。
   
