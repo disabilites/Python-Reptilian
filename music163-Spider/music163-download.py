@@ -1,7 +1,7 @@
+from multiprocessing import Pool, cpu_count
 from bs4 import BeautifulSoup
 import requests
 import re
-import time
 
 base_url = '歌单URL，如：https://music.163.com/playlist?id=2246544491'
 
@@ -32,7 +32,6 @@ def get_music_info(soup, music, id, ):
 
     with open('./music/'  + name + '.mp3', 'wb') as f:
         f.write(data.content)
-    #time.sleep()
 
 if __name__ == "__main__":
     count = 1
@@ -41,10 +40,13 @@ if __name__ == "__main__":
     se = requests.session()
     se = BeautifulSoup(se.get(base_url, headers=headers).content, 'lxml')
     main = se.find('ul', {'class': 'f-hide'})
+    p = Pool(cpu_count())
 
     for data in get_music_sheet():
-        get_music_info(data[0], data[1], data[2])
+        p.apply_async(get_music_info, args=(data[0], data[1], data[2]))
         print('已下载' + str(count) + '首')
         count += 1
 
+    p.close()
+    p.join()
     print('完成！')
