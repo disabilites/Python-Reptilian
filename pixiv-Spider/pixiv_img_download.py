@@ -11,6 +11,8 @@ class PixivImg(object):
         self.url = url
         self.path = path
         self.referer = referer
+        self.err_strList = ['/', '\\', '<', '>', '|', ':', '?', '*', '"']
+        self.re_strList = ['／', '＼', '〈', '〉', '｜', '：', '？', '﹡', '“']
         isExists = os.path.exists(self.path)
 
         if not isExists:
@@ -37,7 +39,11 @@ class PixivImg(object):
         img = img.replace(r'c/240x480/img-master', 'img-original')
         img = img.replace(r'_master1200', '')
 
-        title = title.replace(r'/', '-')
+        for errstr in title:
+            if errstr in self.err_strList:
+                index = self.err_strList.index(errstr)
+                title = title.replace(errstr, self.re_strList[index])
+
         referer = self.referer + id
         headers = {'referer': referer}
         data = requests.get(img, headers=headers)
@@ -52,13 +58,14 @@ class PixivImg(object):
                 f.write(data.content)
             print(title, '下载完成')
 
-url = 'https://www.pixiv.net/ranking.php?mode=weekly'
-referer = 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id='
-now = time.strftime('%Y-%m-%d', time.localtime())
-path = './img/' + now + '/'
-
 if __name__ == "__main__":
+
+    url = 'https://www.pixiv.net/ranking.php?mode=daily'
+    referer = 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id='
+    now = time.strftime('%Y-%m-%d', time.localtime())
+    path = './img/' + now + '/'
     pixiv = PixivImg(url=url, referer=referer, path=path)
+
     for page in range(1, 3):
         params = {'p': str(page), 'format': 'json', 'tt': '9ab895a5bb3a3ccceb03da532c30dc16'}
         Elem = pixiv.get_elem(params)
