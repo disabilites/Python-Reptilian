@@ -19,4 +19,4 @@
 ### 5、music163-Spider：
 [music163-Spider.py](https://github.com/disabilites/Python-Spider/blob/master/music163-Spider/music163-Spider.py) | 爬取[网易云歌单](http://music.163.com/discover/playlist)（需去掉URL中的#）中的歌曲标题，歌手名字，歌曲链接以及封面链接（可设置time.sleep()防止爬取过快被封IP）。保存为js文件主要是为了配合[Aplayer播放器](https://aplayer.js.org/#/zh-Hans/ )使用，需要下载可使用下面的程序
 
-[music163-Spider.py](https://github.com/disabilites/Python-Spider/blob/master/music163-Spider/music163-Spider.py) | 下载歌单中的歌曲（有版权限制的无法下载，time.sleep()同上）
+[music163-Spider.py](https://github.com/disabilites/Python-Spider/blob/master/music163-Spider/music163-Spider.py) | 下载歌单中的歌曲（有版权限制的无法下载）
