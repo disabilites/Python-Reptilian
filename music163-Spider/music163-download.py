@@ -3,15 +3,6 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-base_url = '歌单URL，如：https://music.163.com/playlist?id=2246544491'
-
-headers = {
-    'Referer': 'http://music.163.com/',
-    'Host': 'music.163.com',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-}
-
 def get_music_sheet():
     for music in main.find_all('a'):
         id = re.search('[0-9]+', music['href'])
@@ -34,6 +25,15 @@ def get_music_info(soup, music, id, ):
         f.write(data.content)
 
 if __name__ == "__main__":
+    base_url = '歌单URL，如：https://music.163.com/playlist?id=2246544491'
+
+    headers = {
+        'Referer': 'http://music.163.com/',
+        'Host': 'music.163.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    }
+
     count = 1
     err_strList = ['/', '\\', '<', '>', '|', ':', '?', '*', '"']
     re_strList = ['／', '＼', '〈', '〉', '｜', '：', '？', '﹡', '“']
