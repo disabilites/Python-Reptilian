@@ -70,7 +70,7 @@ class MysqlClient(object):
         select_sql = "select agent from agent_pool"
         self.cursor.execute(select_sql)
         result = self.cursor.fetchall()
-        proxys = []
+        proxies = []
         for proxy in result:
-            proxys.append(proxy[0])
-        return proxys
+            proxies.append(proxy[0])
+        return proxies
