@@ -5,15 +5,15 @@ import time
 class ProxyMetaclass(type):
     def __new__(cls, name, bases, attrs):
         count = 0
-        attrs['__CrawlFunc__'] = []
+        attrs['__SpiderFunc__'] = []
         for k, v in attrs.items():
-            if 'crawl_' in k:
-                attrs['__CrawlFunc__'].append(k)
+            if 'spider_' in k:
+                attrs['__SpiderFunc__'].append(k)
                 count += 1
-        attrs['__CrawlFuncCount__'] = count
+        attrs['__SpiderFuncCount__'] = count
         return type.__new__(cls, name, bases, attrs)
 
-class Crawler(object, metaclass=ProxyMetaclass):
+class Spider(object, metaclass=ProxyMetaclass):
     def get_proxies(self, callback):
         proxies = []
         for proxy in eval("self.{}()".format(callback)):
@@ -21,7 +21,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
             print('成功获取代理', proxy)
         return proxies
 
-    def crawler_cizi(self, page_count=4):
+    def spider_cizi(self, page_count=4):
         base_url = 'https://www.xicidaili.com/nn/{}'
         urls = [base_url.format(page) for page in range(1, page_count + 1)]
         for url in urls:
@@ -35,7 +35,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     port = td[2].text
                     yield ':'.join([ip,port])
 
-    def crawler_89ip(self, page_count=10):
+    def spider_89ip(self, page_count=10):
         base_url = 'http://www.89ip.cn/index_{}.html'
         urls = [base_url.format(page) for page in range(1, page_count + 1)]
         for url in urls:
@@ -49,7 +49,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     port = td[1].text.strip()
                     yield ':'.join([ip, port])
 
-    def crawler_kuai(self, page_count=10):
+    def spider_kuai(self, page_count=10):
         base_url = 'https://www.kuaidaili.com/free/inha/{}/'
         urls = [base_url.format(page) for page in range(1, page_count + 1)]
         for url in urls:
