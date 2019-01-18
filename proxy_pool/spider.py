@@ -31,8 +31,8 @@ class Spider(object, metaclass=ProxyMetaclass):
             for tr in table.select('tr'):
                 td = tr.select('td')
                 if td:
-                    ip = td[1].text
-                    port = td[2].text
+                    ip = td[1].text.strip()
+                    port = td[2].text.strip()
                     yield ':'.join([ip,port])
 
     def spider_89ip(self, page_count=10):
@@ -63,3 +63,17 @@ class Spider(object, metaclass=ProxyMetaclass):
                     port = td[1].text.strip()
                     yield ':'.join([ip, port])
             time.sleep(1)
+
+    def spider_ip3366(page_count=10):
+        base_url = 'http://www.ip3366.net/?stype=1&page={}'
+        urls = [base_url.format(page) for page in range(1, page_count + 1)]
+        for url in urls:
+            html = get_page(url)
+            soup = BeautifulSoup(html, 'lxml')
+            table = soup.table
+            for tr in table.select('tr'):
+                td = tr.select('td')
+                if td:
+                    ip = td[0].text.strip()
+                    port = td[1].text.strip()
+                    yield ':'.join([ip, port])
