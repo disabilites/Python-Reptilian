@@ -23,13 +23,13 @@ class MysqlClient(object):
         self.db.close()
 
     def random(self):
-        select_sql = "select score from agent_pool where score = 100"
+        select_sql = "select agent from agent_pool where score = 100"
         self.cursor.execute(select_sql)
         result = self.cursor.fetchall()
         if len(result):
             return choice(result)[0]
         else:
-            select_sql = "select score from agent_pool where score < 100 and score > 0 limit 50"
+            select_sql = "select agent from agent_pool where score < 100 and score > 0 limit 50"
             self.cursor.execute(select_sql)
             result = self.cursor.fetchall()
             if len(result):
