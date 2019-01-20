@@ -21,7 +21,7 @@ class Spider(object, metaclass=ProxyMetaclass):
             print('成功获取代理', proxy)
         return proxies
 
-    def spider_cizi(self, page_count=4):
+    def spider_cizi(self, page_count=5):
         base_url = 'https://www.xicidaili.com/nn/{}'
         urls = [base_url.format(page) for page in range(1, page_count + 1)]
         for url in urls:
@@ -64,7 +64,7 @@ class Spider(object, metaclass=ProxyMetaclass):
                     yield ':'.join([ip, port])
             time.sleep(1)
 
-    def spider_ip3366(page_count=10):
+    def spider_ip3366(self, page_count=10):
         base_url = 'http://www.ip3366.net/?stype=1&page={}'
         urls = [base_url.format(page) for page in range(1, page_count + 1)]
         for url in urls:
