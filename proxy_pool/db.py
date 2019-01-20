@@ -15,12 +15,11 @@ class MysqlClient(object):
         self.cursor = self.db.cursor()
 
     def add(self, proxy, score=INITIAL_SCORE):
-        select_sql = "select * from agent_pool where proxy = '%s'" % (proxy)
+        select_sql = "select * from agent_pool where agent = '%s'" % (proxy)
         insert_sql = "insert into agent_pool values('%s', '%s')" % (proxy, score)
         if not self.cursor.execute(select_sql):
             self.cursor.execute(insert_sql)
             return self.db.commit()
-        self.db.close()
 
     def random(self):
         select_sql = "select agent from agent_pool where score = 100"
@@ -46,21 +45,21 @@ class MysqlClient(object):
         if score and score > MIN_SCORE:
             print('代理', proxy, '当前分数', score, '减1')
             self.cursor.execute(update_sql)
-            return self.db.commit()
+            self.db.commit()
         else:
             print('代理', proxy, '当前分数', score, '移除')
             self.cursor.execute(delete_sql)
-            return self.db.commit()
+            self.db.commit()
 
     def exists(self, proxy):
         select_sql = "select * from agent_pool where agent = '%s'" % (proxy)
-        return self.cursor.execute(select_sql)
+        self.cursor.execute(select_sql)
 
     def max(self, proxy):
         update_sql = "update agent_pool set score = '%s' where agent = '%s'" % (MAX_SCORE, proxy)
         print('代理', proxy, '可用，设置为', MAX_SCORE)
         self.cursor.execute(update_sql)
-        return self.db.commit()
+        self.db.commit()
 
     def count(self):
         select_sql = "select * from agent_pool"
@@ -74,3 +73,5 @@ class MysqlClient(object):
         for proxy in result:
             proxies.append(proxy[0])
         return proxies
+    def close(self):
+        self.db.close()
