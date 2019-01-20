@@ -24,7 +24,7 @@ class Tester(object):
                     if response.status in VALID_STATUS_CODES:
                         self.mysql.max(proxy)
                         print('代理可用', proxy)
-            except (ClientError, aiohttp.client_exceptions.ClientConnectorError, AttributeError):
+            except (ClientError, aiohttp.client_exceptions.ClientConnectorError, asyncio.TimeoutError, AttributeError):
                 self.mysql.decrease(proxy)
                 print('代理请求失败', proxy)
 
@@ -41,3 +41,4 @@ class Tester(object):
                 asyncio.open_connection()
         except Exception as e:
             print('测试发生错误', e.args)
+        self.mysql.close()
