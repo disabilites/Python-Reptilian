@@ -12,7 +12,7 @@ class MysqlClient(object):
         insert_sql = "insert into agent_pool values('%s', '%s')" % (proxy, score)
         if not self.cursor.execute(select_sql):
             self.cursor.execute(insert_sql)
-            return self.db.commit()
+            self.db.commit()
 
     def random(self):
         select_sql = "select agent from agent_pool where score = 100"
