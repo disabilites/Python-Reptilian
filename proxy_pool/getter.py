@@ -9,7 +9,7 @@ class Getter():
         self.spider = Spider()
 
     def is_over_max(self):
-        if self.spider.count >= MAX_POOL_COUNT:
+        if self.mysql.count() >= MAX_POOL_COUNT:
             return True
         else:
             return False
@@ -22,3 +22,4 @@ class Getter():
                 proxies = self.spider.get_proxies(callback)
                 for proxy in proxies:
                     self.mysql.add(proxy)
+        self.mysql.close()
