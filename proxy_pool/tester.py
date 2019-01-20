@@ -1,12 +1,9 @@
-VALID_STATUS_CODES = [200]
-TEST_URL = 'http://www.baidu.com'
-BATCH_TEST_SIZE = 100
-
 from db import MysqlClient
 from aiohttp import ClientError
 import aiohttp
 import asyncio
 import time
+from constants import *
 
 class Tester(object):
     def __init__(self):

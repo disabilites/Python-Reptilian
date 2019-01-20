@@ -1,13 +1,6 @@
-MAX_SCORE = 100
-MIN_SCORE = 0
-INITIAL_SCORE = 10
-MYSQL_HOST = 'localhost'
-MYSQL_USER = 'username'
-MYSQL_PASSWORD = 'password'
-MYSQL_TABLE = 'tablename'
-
 import pymysql
 from random import choice
+from constants import *
 
 class MysqlClient(object):
     def __init__(self, host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD, table=MYSQL_TABLE):

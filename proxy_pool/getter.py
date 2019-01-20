@@ -1,7 +1,6 @@
 from db import MysqlClient
 from spider import Spider
-
-MAX_POOL_COUNT = 10000
+from constants import *
 
 class Getter():
     def __init__(self):

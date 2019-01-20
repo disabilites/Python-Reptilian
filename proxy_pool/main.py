@@ -1,7 +1,6 @@
 from getter import Getter
 from tester import Tester
 
-
 def run_getter():
     getter = Getter()
     getter.run()
